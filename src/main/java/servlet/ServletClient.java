@@ -109,7 +109,7 @@ public class ServletClient extends HttpServlet {
          
         if(url.equals("/equida/ServletClient/listerLesCourses"))
         {                   
-            System.out.println("LISTER LES COURSES ");
+            
             ArrayList<Course> lesCourses = CourseDAO.getLesCourses(connection);
             request.setAttribute("pLesCourses", lesCourses);
             getServletContext().getRequestDispatcher("/vues/client/listerLesCourses.jsp").forward(request, response);
@@ -118,14 +118,24 @@ public class ServletClient extends HttpServlet {
         if(url.equals("/equida/ServletClient/listerLesInformationsCourses"))
         {  
             String idCourse = request.getParameter("idCourse");
-            System.out.println("SERVLKETCLIENT" + idCourse);
+            
                           
             ArrayList<Participer> uneParticipation = ParticiperDAO.getLesParticipations(connection, idCourse);                          
             request.setAttribute("pLesParticipations", uneParticipation);       
             getServletContext().getRequestDispatcher("/vues/client/listerLesInformationsCourses.jsp").forward(request, response);
 
         }
-    }
+        
+        if(url.equals("/equida/ServletClient/consulterProfil"))
+        {                   
+            
+            String idClient = request.getParameter("idClient");
+            System.out.println("idClient: " + idClient);
+            Client unClient = ClientDAO.getUnClient(connection, idClient);
+            request.setAttribute("pClient", unClient);
+            getServletContext().getRequestDispatcher("/vues/client/consulterClient.jsp").forward(request, response);
+        }
+    } 
 
     /**
      * Handles the HTTP <code>POST</code> method.

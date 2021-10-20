@@ -29,6 +29,58 @@ public class ClientDAO {
     /* Pour chaque client, on récupère aussi le nom de son pays
     /* La liste des clients est stockée dans une ArrayList
     */
+    
+    public static Client getUnClient(Connection connection, String idClient){      
+        Client unClient = new Client();
+        try
+        {
+            //preparation de la requete     
+            //codeCateg="ETE";
+            requete=connection.prepareStatement("SELECT * FROM client,pays WHERE client.cli_codePays=pays.pays_code AND client.cli_id=?");
+            requete.setString(1, idClient);
+            //executer la requete
+            System.out.println(requete);
+            rs=requete.executeQuery();
+            
+            // ArrayList<CategVente> lesCategories = new  ArrayList<CategVente>();
+            
+            if(rs.next()){
+                
+                unClient.setId(rs.getInt("cli_id"));
+                unClient.setNom(rs.getString("cli_nom"));
+                unClient.setPrenom(rs.getString("cli_prenom"));
+                unClient.setVille(rs.getString("cli_ville")); 
+                unClient.setAdrRue(rs.getString("cli_rue"));
+                unClient.setCodePostal(rs.getString("cli_copos"));
+                unClient.setAdresseMessagerie(rs.getString("cli_adresseMessagerie"));
+                
+                
+                Pays p = new Pays();
+                p.setCode(rs.getString("pays_code"));
+                p.setNom(rs.getString("pays_nom"));
+                
+                unClient.setLePays(p);
+               /*CategVente uneCateg = new CategVente();
+                uneCateg.setCode(rs.getString("cat_code"));  // on aurait aussi pu prendre CodeCateg
+                uneCateg.setLibelle(rs.getString("cat_libelle"));
+                
+               lesCategories.add(uneCateg);
+               unClient.setLesCategVentes(lesCategories);*/
+                
+            } 
+               
+            System.out.println(unClient.getCodePostal());
+                   
+
+        }   
+        catch (SQLException e) 
+        {
+            e.printStackTrace();
+            //out.println("Erreur lors de l’établissement de la connexion");
+        }
+        return unClient ;    
+    }
+    
     public static ArrayList<Client>  getLesClients(Connection connection, String codeCateg){      
         ArrayList<Client> lesClients = new  ArrayList<Client>();
         try
@@ -61,6 +113,7 @@ public class ClientDAO {
                 uneCateg.setCode(rs.getString("cat_code"));  // on aurait aussi pu prendre CodeCateg
                 uneCateg.setLibelle(rs.getString("cat_libelle"));
                 
+                
                 lesClients.add(unClient);
             }
         }   
@@ -72,7 +125,48 @@ public class ClientDAO {
         return lesClients ;    
     } 
     
-   
+       public static ArrayList<Client>  getClients(Connection connection){      
+        ArrayList<Client> lesClients = new  ArrayList<Client>();
+        try
+        {
+            //preparation de la requete     
+            //codeCateg="ETE";
+            requete=connection.prepareStatement("SELECT * FROM client, pays WHERE client.cli_codePays=pays.pays_code ORDER BY CLI_ID ASC");
+            //executer la requete
+            rs=requete.executeQuery();
+             
+            //On hydrate l'objet métier Client avec les résultats de la requête
+            while ( rs.next() ) {  
+                
+                Client unClient = new Client();
+                unClient.setId(rs.getInt("cli_id"));
+                unClient.setNom(rs.getString("cli_nom"));
+                unClient.setPrenom(rs.getString("cli_prenom"));
+                unClient.setAdrRue(rs.getString("cli_rue"));
+                unClient.setVille(rs.getString("cli_ville"));
+                unClient.setCodePostal(rs.getString("cli_copos"));
+                unClient.setAdresseMessagerie(rs.getString("cli_adresseMessagerie"));
+                
+                
+                Pays p = new Pays();
+                p.setCode(rs.getString("pays_code"));
+                p.setNom(rs.getString("pays_nom"));
+                
+                unClient.setLePays(p);
+
+                
+                
+                lesClients.add(unClient);
+            }
+        }   
+        catch (SQLException e) 
+        {
+            e.printStackTrace();
+            //out.println("Erreur lors de l’établissement de la connexion");
+        }
+        return lesClients ;    
+    } 
+    
      // Méthode permettant d'insérer un client en base à partir de l'objet client passé en paramètre
     // Cette méthode renvoie l'objet client
     public static Client ajouterClient(Connection connection, Client unClient){      

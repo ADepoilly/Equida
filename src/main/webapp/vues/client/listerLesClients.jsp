@@ -1,16 +1,17 @@
 <%-- 
-    Document   : listerLesCategVentes
-    Created on : 18 oct. 2021, 09:35:55
+    Document   : listerLesClients
+    Created on : 20 oct. 2021, 10:40:58
     Author     : Antonin
 --%>
 
 <%@page import="java.util.ArrayList"%>
-<%@page import="model.CategVente"%>
+<%@page import="model.Client"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
-    <head>
-    <title>Liste des catégories de ventes</title>
+
+<html lang="fr">
+<head>
+    <title>Liste des clients</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
@@ -25,39 +26,48 @@
 </section>
 
 <section>
-        <p class="h1 text-center mt-5">CATEGORIES DE VENTES</p>
+        <p class="h1 text-center mt-5">LISTE DES CLIENTS</p>
+
         <%
-        ArrayList<CategVente> lesCategVentes = (ArrayList)request.getAttribute("pLesCategVentes"); 
+        ArrayList<Client> lesClients = (ArrayList)request.getAttribute("pLesClients");
         %>
-    <table  class="table table-bordered table-striped table-condensed">  
+        <table  class="table table-bordered table-striped table-condensed" style="width: 50%; margin: 0 auto;">  
             <thead>
                 <tr>             
-                    <th>Code</th>
-                    <th>Libelle</th>                                     
-            <br>
-            <br>
+                    <th>Id</th>
+                    <th>Nom</th>
+                    <th>Prénom</th> 
+
+          
+            
                 </tr>
             </thead>
             <tbody>
-                <tr>
+
                     <%
-                    for(int i = 0; i < lesCategVentes.size();i++)
+                    for(int i = 0; i < lesClients.size();i++)
                     {
                         
-                        CategVente uneCategorie = lesCategVentes.get(i);
+                        Client unClient = lesClients.get(i);
                         out.println("<tr><td>");
-                        out.println(uneCategorie.getCode());
+                        out.println(unClient.getId());
                         out.println("</a></td>");
 
+                        out.println("<td><a href='http://localhost:8080/equida/ServletClient/consulterProfil?idClient="+unClient.getId()+"'>");
+                        out.println(unClient.getNom());
+                        out.println("</td>");
+
                         out.println("<td>");
-                        out.println(uneCategorie.getLibelle());
+                        out.println(unClient.getPrenom());
                         out.println("</td>");
                         
-                        out.println("<td><a href ='../ServletVente/listerLesCategVentes?codeCategVente="+ uneCategorie.getCode()+ "'>");
-                        out.println("</td>");
+
+                       
+                      
+                        out.println("</tr>");
                     }
                     %>
-                </tr>
+               
             </tbody>
         </table>
     </body>
@@ -79,5 +89,5 @@
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
 <script src="../js/google-map.js"></script>
 <script src="../js/main.js"></script>
-    
+
 </html>

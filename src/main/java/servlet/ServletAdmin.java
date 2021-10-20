@@ -6,38 +6,37 @@
 package servlet;
 
 import Database.ClientDAO;
-import Database.VenteDAO;
-import Database.CategVenteDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Courriel;
-import model.Lot;
-import model.PieceJointe;
-import model.Vente;
-import model.CategVente;
+import model.Client;
 
 /**
  *
- * @author Zakina
+ * @author adminsio
  */
-public class ServletVente extends HttpServlet {
-    
-    Connection connection ;
-    
+
+public class ServletAdmin extends HttpServlet {
+     Connection connection ;
+      
+        
     @Override
     public void init()
     {     
         ServletContext servletContext=getServletContext();
         connection=(Connection)servletContext.getAttribute("connection");
     }
-        
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -55,10 +54,10 @@ public class ServletVente extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ServletVente</title>");            
+            out.println("<title>Servlet ServletAdmin</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ServletVente at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ServletAdmin at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -76,62 +75,16 @@ public class ServletVente extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String url = request.getRequestURI();  
         
-        String url = request.getRequestURI();
-        // Récup et affichage par date décroissante de toutes les ventes    
-        if(url.equals("/equida/ServletVente/listerLesVentes"))
-        {  
-            ArrayList<Vente> lesVentes = VenteDAO.getLesVentes(connection);
-            request.setAttribute("pLesVentes", lesVentes);
-            getServletContext().getRequestDispatcher("/vues/vente/listerLesVentes.jsp").forward(request, response);
-      
+        // Récup et affichage des clients interessés par une certaine catégorie de ventes
+        if(url.equals("/equida/ServletAdmin/listerLesClients"))
+        {                   
+            
+            ArrayList<Client> lesClients = ClientDAO.getClients(connection);
+            request.setAttribute("pLesClients", lesClients);
+            getServletContext().getRequestDispatcher("/vues/client/listerLesClients.jsp").forward(request, response);
         }
-        if(url.equals("/equida/ServletVente/listerLesCourrielsParVentes"))
-        {  
-            Integer idVente = Integer.parseInt((String)request.getParameter("codeVente"));
-           
-            
-            ArrayList<Courriel> lesCourriels = VenteDAO.getLesCourriels(connection,idVente);
-            
-            request.setAttribute("pLesCourriels", lesCourriels);
-            
-            getServletContext().getRequestDispatcher("/vues/vente/listerLesCourriel.jsp").forward(request, response);
-      
-        }
-        
-        if(url.equals("/equida/ServletVente/listerLesChevauxParVente"))
-        {
-             Integer idVente = Integer.parseInt((String)request.getParameter("codeVente"));
-           
-            
-            ArrayList<Lot> lesLots = VenteDAO.getLesLots(connection,idVente);
-            
-            request.setAttribute("pLesLots", lesLots);
-            
-            getServletContext().getRequestDispatcher("/vues/vente/listerLesChevauxParVente.jsp").forward(request, response);
-        }
-            
-        if(url.equals("/equida/ServletVente/listerLesPiecesJointes"))
-        {  
-            Integer idCourriel = Integer.parseInt((String)request.getParameter("idCourriel"));
-                  
-            ArrayList<PieceJointe> unCourriel = VenteDAO.getLesPiecesJointes(connection, idCourriel);
-            
-            System.out.println(idCourriel);
-            
-            request.setAttribute("pLesPiecesJointes", unCourriel);
-            
-            getServletContext().getRequestDispatcher("/vues/vente/listerLesPiecesJointes.jsp").forward(request, response);          
-        } 
-        
-        if(url.equals("/equida/ServletVente/listerLesCategVentes"))
-        {  
-            ArrayList<CategVente> lesCategVentes = CategVenteDAO.getLesCategVentes(connection); 
-            request.setAttribute("pLesCategVentes", lesCategVentes);
-            getServletContext().getRequestDispatcher("/vues/vente/listerLesCategVentes.jsp").forward(request, response);
-      
-        }
-        
     }
 
     /**

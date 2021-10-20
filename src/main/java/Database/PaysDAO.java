@@ -31,7 +31,7 @@ public class PaysDAO {
             //executer la requete
             rs=requete.executeQuery();
             
-            //On hydrate l'objet métier Client avec les résultats de la requête
+            //On hydrate l'objet métier Pays avec les résultats de la requête
             while ( rs.next() ) {  
                 Pays unPays = new Pays();
                 unPays.setCode(rs.getString("pays_code"));
@@ -46,4 +46,25 @@ public class PaysDAO {
         }
         return lesPays ;    
     } 
+     
+     
+     public static Pays ajouterPays(Connection connection, Pays unPays){      
+        try
+        {
+            requete=connection.prepareStatement("INSERT INTO Pays ( pays_code, pays_nom)\n" +
+                    "VALUES (?,?)", requete.RETURN_GENERATED_KEYS );
+            requete.setString(1, unPays.getCode());
+            requete.setString(2, unPays.getNom());                     
+
+           /* Exécution de la requête */
+            requete.executeUpdate();           
+                     
+        }   
+        catch (SQLException e) 
+        {
+            e.printStackTrace();
+            //out.println("Erreur lors de l’établissement de la connexion");
+        }
+        return unPays ;    
+    }
 }

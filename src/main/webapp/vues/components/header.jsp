@@ -7,17 +7,22 @@
 
    <div class="collapse navbar-collapse" id="ftco-nav">
        <ul class="navbar-nav ml-auto">
-         <li class="nav-item"><a href="#" class="nav-link">Accueil</a></li>
+         <li class="nav-item"><a href="http://localhost:8080/equida" class="nav-link">Accueil</a></li>
          
          
       <% Integer connected = (Integer) session.getAttribute("connected");
         System.out.println(connected);
         if (connected != null && connected == 1) {
-            
+            Integer idSession = (Integer)session.getAttribute("idSession");
       
       %>
-        <li class="nav-item"><a href="http://localhost:8080/equida/ServletConnexion/afficherLoginForm" class="nav-link">Courses</a></li>
-        <li class="nav-item active"><a href="http://localhost:8080/equida/ServletVente/listerLesVentes" class="nav-link">Ventes</a></li>
+        <li class="nav-item"><a href="http://localhost:8080/equida/ServletClient/listerLesCourses" class="nav-link">Courses</a></li>
+        <li class="nav-item"><a href="http://localhost:8080/equida/ServletVente/listerLesVentes" class="nav-link">Ventes</a></li>
+        <li class="nav-item"><a href="http://localhost:8080/equida/ServletCheval/listerLesChevaux" class="nav-link">Liste Chevaux</a></li>
+        <% out.print("<li class='nav-item'><a href='http://localhost:8080/equida/ServletClient/consulterProfil?idClient="+idSession+"' class='nav-link'>Profil</a></li>"); %>
+        
+        
+        
          <li class="nav-item"><a href="ServletConnexion/deconnexion" class="nav-link">Déconnexion</a></li>
         
       <% } else { %>

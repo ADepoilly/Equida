@@ -4,30 +4,35 @@
     Author     : Donatien
 --%>
 
-<%@page import="forms.FormPays"%>
+>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 
-<%@include file="../components/header.jsp" %>
-<%@include file="../components/css.jsp" %>
 
 
 <html>
+    <head>
         <title>AjouterUnPays</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        
+        <%@include file="../components/css.jsp" %>
+    </head>
         
     <body>        
-        <br>
-        <br>
-        <br>
-        <h1>Ajout d'un nouveau Pays</h1>
-        <br>
-    </body>
+        <%@include file="../components/header.jsp" %>
+        
+        
+        <section class="hero-wrap hero-wrap-2" style="height: 10vh; background-image: url('https://picardie.media.tourinsoft.eu/upload/Hippodrome-Chantilly--1-.jpg');">
+
+</section>
+
+<section>
+        <p class="h1 text-center mt-5">Ajouter un pays</p>
+        
+        
     <%
                 //Pays Pays=(Pays)request.getAttribute("Pays");
-                FormPays form = (FormPays)request.getAttribute("form");
+                
             %>
         
         <form class="form-inline" action="ajouterPays" method="POST">

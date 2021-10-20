@@ -88,7 +88,7 @@ public class ServletPays extends HttpServlet {
         {  
             ArrayList<Pays> lesPays = PaysDAO.getLesPays(connection);
             request.setAttribute("pLesPays", lesPays);
-            getServletContext().getRequestDispatcher("/vues/pays/ajouterPays.jsp").forward(request, response);
+            getServletContext().getRequestDispatcher("/vues/pays/ajouterPays2.jsp").forward(request, response);
       
         }
     }

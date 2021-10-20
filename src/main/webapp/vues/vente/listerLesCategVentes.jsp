@@ -10,26 +10,28 @@
 <!DOCTYPE html>
 <html>
     <head>
-    <title>Liste des catégories de ventes</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    
-     <%@include file="../components/css.jsp" %> 
-</head>
-<body>
-    <%@include file="../components/header.jsp" %> 
-<!-- END nav -->
-
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Lister les catégories de vente</title>
+        
+         <%@include file="../components/css.jsp" %> 
+    </head>
+    <body>
+        
+        
+        <%@include file="../components/header.jsp" %> 
+        
+        
 <section class="hero-wrap hero-wrap-2" style="height: 10vh; background-image: url('https://picardie.media.tourinsoft.eu/upload/Hippodrome-Chantilly--1-.jpg');">
 
 </section>
 
 <section>
-        <p class="h1 text-center mt-5">CATEGORIES DE VENTES</p>
+        <p class="h1 text-center mt-5">LISTE DES CATEGORIES DE VENTES</p>
+
         <%
-        ArrayList<CategVente> lesCategVentes = (ArrayList)request.getAttribute("pLesCategVentes"); 
+        ArrayList<CategVente> lesCategVentes = (ArrayList)request.getAttribute("pLesCategVente");
         %>
-    <table  class="table table-bordered table-striped table-condensed">  
+        <table  class="table table-bordered table-striped table-condensed" style="width: 80%; margin: 0 auto;">  
             <thead>
                 <tr>             
                     <th>Code</th>
@@ -53,31 +55,11 @@
                         out.println(uneCategorie.getLibelle());
                         out.println("</td>");
                         
-                        out.println("<td><a href ='../ServletVente/listerLesCategVentes?codeCategVente="+ uneCategorie.getCode()+ "'>");
-                        out.println("</td>");
                     }
                     %>
                 </tr>
             </tbody>
         </table>
+</section>
     </body>
-    
-    <%@include file="../components/footer.jsp" %> 
-
-<script src="../js/jquery.min.js"></script>
-<script src="../js/jquery-migrate-3.0.1.min.js"></script>
-<script src="../js/popper.min.js"></script>
-<script src="../js/bootstrap.min.js"></script>
-<script src="../js/jquery.easing.1.3.js"></script>
-<script src="../js/jquery.waypoints.min.js"></script>
-<script src="../js/jquery.stellar.min.js"></script>
-<script src="../js/owl.carousel.min.js"></script>
-<script src="../js/jquery.magnific-popup.min.js"></script>
-<script src="../js/jquery.animateNumber.min.js"></script>
-<script src="../js/bootstrap-datepicker.js"></script>
-<script src="../js/scrollax.min.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
-<script src="../js/google-map.js"></script>
-<script src="../js/main.js"></script>
-    
 </html>

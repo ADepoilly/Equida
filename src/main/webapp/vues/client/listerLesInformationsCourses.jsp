@@ -65,7 +65,7 @@
                         out.println(unCheval.getId());
                         out.println("</td>");
                         
-                             out.println("<td>");
+                        out.println("<td><a href='../ServletCheval/voirCheval?chevalID="+unCheval.getId()+"'>");
                         out.println(unCheval.getNom());
                         out.println("</a></td>");
                     
@@ -83,7 +83,7 @@
         </table>
     </body>
     
-        <%@include file="../components/footer.jsp" %> 
+      
 
 <script src="../js/jquery.min.js"></script>
 <script src="../js/jquery-migrate-3.0.1.min.js"></script>

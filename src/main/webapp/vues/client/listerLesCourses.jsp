@@ -72,9 +72,10 @@
                
             </tbody>
         </table>
+</section>
     </body>
     
-    <%@include file="../components/footer.jsp" %> 
+
 
 <script src="../js/jquery.min.js"></script>
 <script src="../js/jquery-migrate-3.0.1.min.js"></script>

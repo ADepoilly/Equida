@@ -126,8 +126,8 @@ public class ServletVente extends HttpServlet {
         
         if(url.equals("/equida/ServletVente/listerLesCategVentes"))
         {  
-            ArrayList<CategVente> lesCategVentes = CategVenteDAO.getLesCategVentes(connection); 
-            request.setAttribute("pLesCategVentes", lesCategVentes);
+            ArrayList<CategVente> lesCategVente = CategVenteDAO.getLesCategVentes(connection);
+            request.setAttribute("pLesCategVente", lesCategVente);
             getServletContext().getRequestDispatcher("/vues/vente/listerLesCategVentes.jsp").forward(request, response);
       
         }

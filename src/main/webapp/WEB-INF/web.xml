@@ -4,10 +4,6 @@
         <listener-class>Database.InitConnexion</listener-class>
     </listener>
     <servlet>
-        <servlet-name>ServletConnexion</servlet-name>
-        <servlet-class>servlet.ServletConnexion</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>ServletClient</servlet-name>
         <servlet-class>servlet.ServletClient</servlet-class>
     </servlet>
@@ -19,32 +15,29 @@
         <servlet-name>ServletHome</servlet-name>
         <servlet-class>servlet.ServletHome</servlet-class>
     </servlet>
-     <servlet>
-        <servlet-name>ServletTypeCheval</servlet-name>
-        <servlet-class>servlet.ServletTypeCheval</servlet-class>
-    </servlet>
     <servlet>
         <servlet-name>ServletPays</servlet-name>
         <servlet-class>servlet.ServletPays</servlet-class>
     </servlet>
-    
+   
     <servlet>
-        <servlet-name>ServletCheval</servlet-name>
-        <servlet-class>servlet.ServletCheval</servlet-class>
+        <servlet-name>ServletTypeCheval</servlet-name>
+        <servlet-class>servlet.ServletTypeCheval</servlet-class>
     </servlet>
+ 
+
     
     
-    <servlet-mapping>
-        <servlet-name>ServletConnexion</servlet-name>
-        <url-pattern>/ServletConnexion/afficherLoginForm</url-pattern>
-    </servlet-mapping>
+    
+    
     <servlet-mapping>
         <servlet-name>ServletClient</servlet-name>
         <url-pattern>/ServletClient/listerLesClientsParCategVente</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ServletHome</servlet-name>
-        <url-pattern/></servlet-mapping>
+        <url-pattern/>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ServletVente</servlet-name>
         <url-pattern>/ServletVente/listerLesVentes</url-pattern>
@@ -61,70 +54,42 @@
         <servlet-name>ServletVente</servlet-name>
         <url-pattern>/ServletVente/listerLesPiecesJointes</url-pattern>
     </servlet-mapping>
-    
-    <servlet-mapping>
-        <servlet-name>ServletVente</servlet-name>
-        <url-pattern>/ServletVente/listerLesCategVentes</url-pattern>
-    </servlet-mapping>
-    
-    
     <servlet-mapping>
         <servlet-name>ServletClient</servlet-name>
         <url-pattern>/ServletClient/ajouterClient</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ServletClient</servlet-name>
-        <url-pattern>/ServletClient/listerLesCourses</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ServletClient</servlet-name>
-        <url-pattern>/ServletClient/listerLesInformationsCourses</url-pattern>
-    </servlet-mapping>
+    </servlet-mapping>    
+    
     <servlet-mapping>
         <servlet-name>ServletPays</servlet-name>
         <url-pattern>/ServletPays/listerLesPays</url-pattern>
-    </servlet-mapping>
+    </servlet-mapping>    
     <servlet-mapping>
         <servlet-name>ServletPays</servlet-name>
         <url-pattern>/ServletPays/ajouterPays</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletPays</servlet-name>
+        <url-pattern>/ServletPays/modifierPays</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>ServletTypeCheval</servlet-name>
+        <url-pattern>/ServletTypeCheval/listerLesRaces</url-pattern>
+    </servlet-mapping>
+    
     <servlet-mapping>
         <servlet-name>ServletTypeCheval</servlet-name>
         <url-pattern>/ServletTypeCheval/ajouterUneRace</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ServletTypeCheval</servlet-name>
-        <url-pattern>/ServletTypeCheval/listerLesRaces</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-    <servlet-name>ServletClient</servlet-name>
-        <url-pattern>/ServletClient/consulterClient</url-pattern>
-    </servlet-mapping>
-    
-    <servlet-mapping>
-        <servlet-name>ServletCheval</servlet-name>
-        <url-pattern>/ServletCheval/ajouterCheval</url-pattern>
-    </servlet-mapping>
-    
-    <servlet-mapping>
-        <servlet-name>ServletCheval</servlet-name>
-        <url-pattern>/ServletCheval/listerLesChevaux</url-pattern>
-    </servlet-mapping>
-    
-    <servlet-mapping>
-        <servlet-name>ServletCheval</servlet-name>
-        <url-pattern>/ServletCheval/voirCheval</url-pattern>
+        <url-pattern>/ServletTypeCheval/modifierUneRace</url-pattern>
     </servlet-mapping>
     
     
-    <servlet-mapping>
-        <servlet-name>ServletCheval</servlet-name>
-        <url-pattern>/ServletCheval/modifierCheval</url-pattern>
-    </servlet-mapping>     
-      
-        
-          
-              
+    
+    
+    
     <session-config>
         <session-timeout>
             30

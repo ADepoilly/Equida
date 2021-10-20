@@ -18,9 +18,9 @@
          <%
         Client unClient = (Client)request.getAttribute("pClient");
         %>
-        <table class="table table-bordered table-striped table-condensed">
         
-         
+        
+         <table class="table table-bordered table-striped table-condensed">
             <tr><td>ID :</td><td><% out.println(unClient.getId());%></td></tr>
             <tr><td>NOM :</td><td><% out.println(unClient.getNom());%></td></tr>
             <tr><td>PRENOM :</td><td><%  out.println(unClient.getPrenom());%></td></tr>

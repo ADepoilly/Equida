@@ -69,4 +69,74 @@ public class TypeChevalDAO {
         }
         return unTypeCheval ;    
     }
+     
+     public static TypeCheval modifierUneRace(Connection connection, TypeCheval unTypeCheval){      
+       
+        try
+        {
+            requete=connection.prepareStatement("UPDATE TypeCheval SET  typ_libelle=?, typ_description=? WHERE typ_id=?" );
+            
+            
+            requete.setString(1, unTypeCheval.getLibelle());
+            requete.setString(2, unTypeCheval.getDescription());
+            requete.setInt(3, unTypeCheval.getId());
+                        
+
+           /* Exécution de la requête */
+            requete.executeUpdate();
+                        
+        }   
+        catch (SQLException e) 
+        {
+            e.printStackTrace();
+            //out.println("Erreur lors de l’établissement de la connexion");
+        }
+        
+           
+        return unTypeCheval ;    
+        
+        
+    }
+    
+     
+     
+     public static TypeCheval getUnTypeCheval(Connection connection,int typ_id){      
+        TypeCheval unTypeCheval = new  TypeCheval();
+        try
+        {
+            //preparation de la requete     
+           
+            requete=connection.prepareStatement("SELECT * from TypeCheval WHERE typ_id=?");
+            requete.setInt(1, typ_id);
+            rs=requete.executeQuery();
+            
+            //On hydrate l'objet métier Client avec les résultats de la requête
+            if ( rs.next() ) {  
+                
+                unTypeCheval.setId(rs.getInt("typ_id"));
+                unTypeCheval.setLibelle(rs.getString("typ_libelle"));
+                unTypeCheval.setDescription(rs.getString("typ_description"));
+                                
+                  
+            }
+        }   
+        catch (SQLException e) 
+        {
+            e.printStackTrace();
+            //out.println("Erreur lors de l’établissement de la connexion");
+        }
+        return unTypeCheval ;    
+    }
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
 }

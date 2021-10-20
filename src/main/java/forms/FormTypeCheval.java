@@ -84,5 +84,34 @@ public class FormTypeCheval {
         return unTypeCheval;
     }
     
+    public TypeCheval modifierUneRace( HttpServletRequest request ) {
+      
+        TypeCheval unTypeCheval  = new TypeCheval();
+         
+        
+        String typ_libelle = getDataForm( request, "typ_libelle");  
+        String typ_description = getDataForm( request, "typ_description");  
+        
+        
+       
+         try {
+             validationLibelle( typ_libelle );
+        } catch ( Exception e ) {
+            setErreur( "typ_libelle", e.getMessage() );
+        }
+        unTypeCheval.setLibelle(typ_libelle); 
+
+        if ( erreurs.isEmpty() ) {
+            resultat = "Succès de l'ajout.";
+        } else {
+            resultat = "Échec de l'ajout.";
+        }
+         
+      
+        unTypeCheval.setLibelle(typ_libelle);
+        unTypeCheval.setDescription(typ_description);
+                
+        return unTypeCheval;
+    }
     
 }

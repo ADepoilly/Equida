@@ -57,7 +57,7 @@
                         out.println(unTypeCheval.getDescription());
                         out.println("</td>");  
                         
-                        out.println("<td><a href ='../ServletTypeCheval/modifierTypeCheval?idTypeCheval="+ unTypeCheval.getId()+ "'>");
+                        out.println("<td><a href ='../ServletTypeCheval/modifierUneRace?typ_id="+ unTypeCheval.getId()+ "'>");
                         out.println("Modifier");
                         out.println("</td>");
                         

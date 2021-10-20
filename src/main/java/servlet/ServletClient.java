@@ -8,8 +8,6 @@ package servlet;
 import Database.CategVenteDAO;
 import Database.ClientDAO;
 import Database.PaysDAO;
-import Database.CourseDAO;
-import Database.ParticiperDAO;
 import forms.FormClient;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -27,8 +25,7 @@ import javax.servlet.http.HttpServletResponse;
 import model.CategVente;
 import model.Client;
 import model.Pays;
-import model.Course;
-import model.Participer;
+import model.PieceJointe;
 
 /**
  *
@@ -106,35 +103,7 @@ public class ServletClient extends HttpServlet {
             request.setAttribute("pLesCategVente", lesCategVentes);
             this.getServletContext().getRequestDispatcher("/vues/client/ajouterClient.jsp" ).forward( request, response );
         }
-         
-        if(url.equals("/equida/ServletClient/listerLesCourses"))
-        {                   
-            
-            ArrayList<Course> lesCourses = CourseDAO.getLesCourses(connection);
-            request.setAttribute("pLesCourses", lesCourses);
-            getServletContext().getRequestDispatcher("/vues/client/listerLesCourses.jsp").forward(request, response);
-        }
         
-        if(url.equals("/equida/ServletClient/listerLesInformationsCourses"))
-        {  
-            String idCourse = request.getParameter("idCourse");
-            
-                          
-            ArrayList<Participer> uneParticipation = ParticiperDAO.getLesParticipations(connection, idCourse);                          
-            request.setAttribute("pLesParticipations", uneParticipation);       
-            getServletContext().getRequestDispatcher("/vues/client/listerLesInformationsCourses.jsp").forward(request, response);
-
-        }
-        
-        if(url.equals("/equida/ServletClient/consulterProfil"))
-        {                   
-            
-            String idClient = request.getParameter("idCLient");
-            
-            Client unClient = ClientDAO.getUnClient(connection, idClient);
-            request.setAttribute("pClient", unClient);
-            getServletContext().getRequestDispatcher("/vues/client/consulterClient.jsp").forward(request, response);
-        }
     }
 
     /**

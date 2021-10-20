@@ -75,6 +75,7 @@ public class ServletTypeCheval extends HttpServlet {
             throws ServletException, IOException {
         
         String url = request.getRequestURI(); 
+        System.out.println(url);
         
         
         if(url.equals("/equida/ServletTypeCheval/listerLesRaces"))
@@ -89,10 +90,25 @@ public class ServletTypeCheval extends HttpServlet {
             ArrayList<TypeCheval> lesTypesChevaux = TypeChevalDAO.getLesTypesChevaux(connection);
             request.setAttribute("pLesTypesChevaux", lesTypesChevaux);
             getServletContext().getRequestDispatcher("/vues/race/ajouterUneRace.jsp").forward(request, response);
+        }
+        
+        if(url.equals("/equida/ServletTypeCheval/modifierUneRace"))
+        { 
+            
+            Integer typ_id = Integer.parseInt((String)request.getParameter("typ_id"));
+            
+           
+            
+            TypeCheval unTypeCheval = TypeChevalDAO.getUnTypeCheval(connection,typ_id);
+            request.setAttribute("pListeTypeCheval", unTypeCheval);
+            this.getServletContext().getRequestDispatcher("/vues/race/modifierUneRace.jsp").forward(request, response);
       
         }
+        
     }
 
+    
+    
     /**
      * Handles the HTTP <code>POST</code> method.
      *
@@ -106,29 +122,64 @@ public class ServletTypeCheval extends HttpServlet {
             throws ServletException, IOException {
         
         FormTypeCheval form = new FormTypeCheval();
+        String url = request.getRequestURI();           
+		
         /* Appel au traitement et à la validation de la requête, et récupération du bean en résultant */
-        TypeCheval unTypeCheval = form.ajouterUnTypeCheval(request);
+        TypeCheval unTypeCheval= null; 
         
         /* Stockage du formulaire et de l'objet dans l'objet request */
         request.setAttribute( "form", form );
-        request.setAttribute( "pTypeCheval", unTypeCheval );
-		
+        request.setAttribute( "pUnTypeCheval", unTypeCheval );
+
         if (form.getErreurs().isEmpty()){
-            // Il n'y a pas eu d'erreurs de saisie, donc on renvoie la vue affichant les infos du TypeCheval 
-            TypeCheval TypeChevalInsere =  TypeChevalDAO.ajouterUnTypeCheval(connection, unTypeCheval);
-            if (TypeChevalInsere != null ){
-                ArrayList<TypeCheval> lesTypesCheval = TypeChevalDAO.getLesTypesChevaux(connection);
-                request.setAttribute("pListeTypeCheval", lesTypesCheval);
-                this.getServletContext().getRequestDispatcher("/vues/race/listerLesRaces.jsp").forward( request, response );
-            }
+            if(url.equals("/equida/ServletTypeCheval/ajouterUneRace"))
+                {                   
+                TypeCheval unTypeChevalAjout =  form.ajouterUnTypeCheval(request);
+                unTypeCheval =  TypeChevalDAO.ajouterUnTypeCheval(connection, unTypeChevalAjout);
+
+                }
+            
+            if(url.equals("/equida/ServletTypeCheval/modifierUneRace"))
+                {
+                TypeCheval unTypeChevalModifie =  form.modifierUneRace(request);
+                unTypeCheval =  TypeChevalDAO.modifierUneRace(connection, unTypeChevalModifie);
+                
+ 
+                }
+          
+            
+            if (unTypeCheval != null ){
+                ArrayList<TypeCheval> TypeChevalSelect = TypeChevalDAO.getLesTypesChevaux(connection);
+                request.setAttribute("pListeTypeCheval", TypeChevalSelect);
+                this.getServletContext().getRequestDispatcher("/vues/race/listerLesRaces.jsp" ).forward( request, response );
+                }
             else 
-            {
+                {
                 // Cas oùl'insertion en bdd a échoué
                 //renvoyer vers une page d'erreur 
-            }
+                }      
+                  
         }
+        
+        else       
+        
+            if(url.equals("/equida/ServletTypeCheval/ajouterUneRace"))
+                { 
+		ArrayList<TypeCheval> LesTypesChevaux = TypeChevalDAO.getLesTypesChevaux(connection);
+                request.setAttribute("pLesTypesChevaux", LesTypesChevaux);
+                this.getServletContext().getRequestDispatcher("/vues/race/listerLesRaces.jsp" ).forward( request, response );
+                }
+            
+            else if(url.equals("/equida/ServletTypeCheval/modifierUneRace"))
+                {
+                ArrayList<TypeCheval> LesTypesChevaux = TypeChevalDAO.getLesTypesChevaux(connection);
+                request.setAttribute("pLesTypesChevaux", LesTypesChevaux);
+                this.getServletContext().getRequestDispatcher("/vues/race/listerLesRaces.jsp" ).forward( request, response );
+                }
+        
     }
-     
+    
+    
     
     @Override
     public String getServletInfo() {

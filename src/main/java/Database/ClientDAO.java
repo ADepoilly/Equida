@@ -29,27 +29,6 @@ public class ClientDAO {
     /* Pour chaque client, on récupère aussi le nom de son pays
     /* La liste des clients est stockée dans une ArrayList
     */
-    
-    public static Client getUnClient(Connection connection, String idClient){      
-        Client unClient = new Client();
-        try
-        {
-            //preparation de la requete     
-            //codeCateg="ETE";
-            requete=connection.prepareStatement("SELECT * FROM client where idClient = ?");
-            requete.setString(1, idClient);
-            //executer la requete
-            rs=requete.executeQuery();
-
-        }   
-        catch (SQLException e) 
-        {
-            e.printStackTrace();
-            //out.println("Erreur lors de l’établissement de la connexion");
-        }
-        return unClient ;    
-    }
-    
     public static ArrayList<Client>  getLesClients(Connection connection, String codeCateg){      
         ArrayList<Client> lesClients = new  ArrayList<Client>();
         try

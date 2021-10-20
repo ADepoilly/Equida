@@ -7,7 +7,6 @@ package servlet;
 
 import Database.ClientDAO;
 import Database.VenteDAO;
-import Database.CategVenteDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -21,7 +20,6 @@ import model.Courriel;
 import model.Lot;
 import model.PieceJointe;
 import model.Vente;
-import model.CategVente;
 
 /**
  *
@@ -121,17 +119,10 @@ public class ServletVente extends HttpServlet {
             
             request.setAttribute("pLesPiecesJointes", unCourriel);
             
-            getServletContext().getRequestDispatcher("/vues/vente/listerLesPiecesJointes.jsp").forward(request, response);          
+            getServletContext().getRequestDispatcher("/vues/vente/listerLesPiecesJointes.jsp").forward(request, response);
+
+            
         } 
-        
-        if(url.equals("/equida/ServletVente/listerLesCategVentes"))
-        {  
-            ArrayList<CategVente> lesCategVente = CategVenteDAO.getLesCategVentes(connection);
-            request.setAttribute("pLesCategVente", lesCategVente);
-            getServletContext().getRequestDispatcher("/vues/vente/listerLesCategVentes.jsp").forward(request, response);
-      
-        }
-        
     }
 
     /**

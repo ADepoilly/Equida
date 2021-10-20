@@ -67,4 +67,58 @@ public class PaysDAO {
         }
         return unPays ;    
     }
+     
+     
+     
+     
+     public static Pays modifierPays(Connection connection, Pays unPays){      
+       
+        try
+        {
+            requete=connection.prepareStatement("UPDATE Pays SET  pays_nom=? WHERE pays_code=?" );
+            
+            requete.setString(1, unPays.getNom());
+            requete.setString(2, unPays.getCode());
+                        
+
+           /* Exécution de la requête */
+            requete.executeUpdate();
+                        
+        }   
+        catch (SQLException e) 
+        {
+            e.printStackTrace();
+            //out.println("Erreur lors de l’établissement de la connexion");
+        }
+        return unPays ;    
+    }
+    
+     public static Pays getUnPays(Connection connection,String CodePays){      
+        Pays unPays = new  Pays();
+        try
+        {
+            //preparation de la requete     
+           
+            requete=connection.prepareStatement("SELECT pays_code, pays_nom from pays WHERE pays_code=?");
+            requete.setString(1, CodePays);
+            rs=requete.executeQuery();
+             
+            //On hydrate l'objet métier Client avec les résultats de la requête
+            if ( rs.next() ) {  
+
+                unPays.setCode(rs.getString("pays_code"));
+                unPays.setNom(rs.getString("pays_nom"));
+                                
+                  
+            }
+        }   
+        catch (SQLException e) 
+        {
+            e.printStackTrace();
+            //out.println("Erreur lors de l’établissement de la connexion");
+        }
+        return unPays ;    
+    }
+     
+      
 }

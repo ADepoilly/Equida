@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author Antonin
+ * @author Matteo
  */
 public class Cheval {
     
@@ -23,9 +23,10 @@ public class Cheval {
     private Cheval mere;
     private TypeCheval leTypeCheval;
     private ArrayList<Lot> lesLots;
-    private ArrayList<Participer> lesParticipations;
+    
             
-              
+            
+           
     public Cheval(){
         
     }
@@ -58,15 +59,6 @@ public class Cheval {
         return sire;
     }
 
-    public ArrayList<Participer> getLesParticipations() {
-        return lesParticipations;
-    }
-
-    public void setLesParticipations(ArrayList<Participer> lesParticipations) {
-        this.lesParticipations = lesParticipations;
-    }
-
-    
     public void setSire(String sire) {
         this.sire = sire;
     }
@@ -119,12 +111,6 @@ public class Cheval {
         }
         lesLots.add(pUnLot);
     }
-    
-     public void addLesParticipations(Participer pUneParticipation){
-        if (lesParticipations == null){
-            lesParticipations = new ArrayList<Participer>();
-        }
-        lesParticipations.add(pUneParticipation);
-    }
    
+ 
 }

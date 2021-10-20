@@ -102,7 +102,8 @@ public class FormPays {
         Pays unPays  = new Pays();
          
         String codePays = getDataForm( request, "codePays" );
-        String nomPays = getDataForm( request, "nomPays");
+        String nomPays = getDataForm( request, "nomPays");  
+        
            
         try {
              validationCode( codePays );

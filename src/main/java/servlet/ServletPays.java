@@ -80,7 +80,7 @@ public class ServletPays extends HttpServlet {
         if(url.equals("/equida/ServletPays/listerLesPays"))
         {   
             ArrayList<Pays> lesPays = PaysDAO.getLesPays(connection);
-            request.setAttribute("pListePays", lesPays);
+            request.setAttribute("pPays", lesPays);
             getServletContext().getRequestDispatcher("/vues/pays/listerLesPays.jsp").forward(request, response);
         }
         
@@ -88,7 +88,15 @@ public class ServletPays extends HttpServlet {
         {  
             ArrayList<Pays> lesPays = PaysDAO.getLesPays(connection);
             request.setAttribute("pLesPays", lesPays);
-            getServletContext().getRequestDispatcher("/vues/pays/ajouterPays2.jsp").forward(request, response);
+            getServletContext().getRequestDispatcher("/vues/pays/ajouterPays.jsp").forward(request, response);
+      
+        }
+        if(url.equals("/equida/ServletPays/modifierPays"))
+        { 
+            String codePays = request.getParameter("codePays");
+            Pays unPays = PaysDAO.getUnPays(connection,codePays); 
+            request.setAttribute("pPays", unPays);
+            this.getServletContext().getRequestDispatcher("/vues/pays/modifierPays.jsp").forward(request, response);
       
         }
     }
@@ -106,29 +114,62 @@ public class ServletPays extends HttpServlet {
             throws ServletException, IOException {
         
         FormPays form = new FormPays();
+        String url = request.getRequestURI();           
+		
         /* Appel au traitement et à la validation de la requête, et récupération du bean en résultant */
-        Pays unPays = form.ajouterPays(request);
+        Pays unPays= null; 
         
         /* Stockage du formulaire et de l'objet dans l'objet request */
         request.setAttribute( "form", form );
-        request.setAttribute( "pPays", unPays );
-		
+        request.setAttribute( "pUnPays", unPays );
+
         if (form.getErreurs().isEmpty()){
-            // Il n'y a pas eu d'erreurs de saisie, donc on renvoie la vue affichant les infos du Pays 
-            Pays PaysInsere =  PaysDAO.ajouterPays(connection, unPays);
-            if (PaysInsere != null ){
-                ArrayList<Pays> lesPays = PaysDAO.getLesPays(connection);
-                request.setAttribute("pListePays", lesPays);
-                this.getServletContext().getRequestDispatcher("/vues/pays/listerLesPays.jsp").forward( request, response );
-            }
+            if(url.equals("/equida/ServletPays/ajouterPays"))
+                {                   
+                Pays unPaysAjout =  form.ajouterPays(request);
+                unPays =  PaysDAO.ajouterPays(connection, unPaysAjout);
+
+                }
+            
+            if(url.equals("/equida/ServletPays/modifierPays"))
+                {
+                Pays unPaysModifie =  form.modifierPays(request);
+                unPays =  PaysDAO.modifierPays(connection, unPaysModifie);
+ 
+                }
+          
+            
+            if (unPays != null ){
+                ArrayList<Pays> paysSelect = PaysDAO.getLesPays(connection);
+                request.setAttribute("pPays", paysSelect);
+                this.getServletContext().getRequestDispatcher("/vues/pays/listerLesPays.jsp" ).forward( request, response );
+                }
             else 
-            {
+                {
                 // Cas oùl'insertion en bdd a échoué
                 //renvoyer vers une page d'erreur 
-            }
+                }      
+                  
         }
+        
+        else       
+        
+            if(url.equals("/equida/ServletPays/ajouterPays"))
+                { 
+		ArrayList<Pays> lesPays = PaysDAO.getLesPays(connection);
+                request.setAttribute("pLesPays", lesPays);
+                this.getServletContext().getRequestDispatcher("/vues/pays/listerLesPays.jsp" ).forward( request, response );
+                }
+            
+            else if(url.equals("/equida/ServletPays/modifierPays"))
+                {
+                ArrayList<Pays> lesPays = PaysDAO.getLesPays(connection);
+                request.setAttribute("pLesPays", lesPays);
+                this.getServletContext().getRequestDispatcher("/vues/pays/listerLesPays.jsp" ).forward( request, response );
+                }
+        
     }
-     
+
     
     @Override
     public String getServletInfo() {

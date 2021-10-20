@@ -49,4 +49,4 @@
 </html>
 
 
-
+<%@include file="../components/footer.jsp" %>

@@ -4,6 +4,7 @@
     Author     : Zakina
 --%>
 
+<%@page import="model.Cheval"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="model.Vente"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -26,61 +27,68 @@
 </section>
 
 <section>
-        <p class="h1 text-center mt-5">Informations des ventes</p>
+        <p class="h1 text-center mt-5">Lister les chevaux</p>
 
          <%
-        ArrayList<Vente> lesVentes = (ArrayList)request.getAttribute("pLesVentes");
+        ArrayList<Cheval> lesChevaux = (ArrayList)request.getAttribute("pLesChevaux");
         %>
-        <table  class="table table-bordered table-striped table-condensed">  
+        <div class="nav-item active"><a href="../ServletCheval/ajouterCheval" class="nav-link text-center">Ajouter un Cheval</a></div>
+        <table  class="table table-bordered table-striped table-condensed"   style="width: 80%; margin: 0 auto;">  
             <thead>
                 <tr>             
 
                     <th>Nom</th>
-                    <th>Date début</th>
-                    <th>Catégorie</th>  
-                    <th>Lister les clients</th>
-                    <th>Lister les courriels</th>
-                    <th>Lister les chevaux</th>
+                    <th>Sexe</th>
+                    <th>Sire</th>  
+                    <th>Date de naissance</th>
+                    <th>Type</th>
+                    <th>Père</th>
+                    <th>Mère</th>
 
-            <br>
-            <br>
+
                 </tr>
             </thead>
             <tbody>
-                <tr>
                     <%
-                    for(int i = 0; i < lesVentes.size();i++)
+                    for(int i = 0; i < lesChevaux.size();i++)
                     {
                         
-                        Vente uneVente = lesVentes.get(i);
+                        Cheval unCheval = lesChevaux.get(i);
                         out.println("<tr>");
 
+                        out.println("<td><a href='../ServletCheval/voirCheval?chevalID="+unCheval.getId()+"'>");
+                        out.println(unCheval.getNom());
+                        out.println("</a></td>");
+
                         out.println("<td>");
-                        out.println(uneVente.getNom());
+                        out.println(unCheval.getSexe());
                         out.println("</td>");
 
                         out.println("<td>");
-                        out.println(uneVente.getDateDebutVente());
+                        out.println(unCheval.getSire());
                         out.println("</td>");
 
                         out.println("<td>");
-                        out.println(uneVente.getCategVente().getLibelle());
+                        out.println(unCheval.getDateNaissance());
                         out.println("</td>");
-                        
-                        out.println("<td><a href ='../ServletClient/listerLesClientsParCategVente?codeCat="+ uneVente.getCategVente().getCode()+ "'>");
-                        out.println("Lister les clients interessés");
+
+                        out.println("<td>");
+                        out.println(unCheval.getLeTypeCheval().getLibelle());
                         out.println("</td>");
+
+
+                        out.println("<td>");
+                        out.println(unCheval.getPere().getNom());
+                        out.println("</td>");                     
+     
                         
-                         out.println("<td><a href ='../ServletVente/listerLesCourrielsParVentes?codeVente="+ uneVente.getId()+ "'>");
-                        out.println("Lister les courriels");
-                        out.println("</td>");
+                        out.println("<td>");
+                        out.println(unCheval.getMere().getNom());
+                        out.println("</td>");   
                         
-                        out.println("<td><a href ='../ServletVente/listerLesChevauxParVente?codeVente="+ uneVente.getId()+ "'>");
-                        out.println("Lister les Chevaux");
-                        out.println("</td>");     
+                        out.println("</tr>");
                     }
                     %>
-                </tr>
             </tbody>
 
         </table>

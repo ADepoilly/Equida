@@ -120,6 +120,7 @@ public class ServletConnexion extends HttpServlet {
                         session.setAttribute("client", compteTeste.getLeClient());
                         session.setAttribute("compte", compteTeste);
                         session.setAttribute("connected", 1);
+                        session.setAttribute("idSession", compteTeste.getLeClient().getId());
                 
                 
                 

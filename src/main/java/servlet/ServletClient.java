@@ -129,13 +129,13 @@ public class ServletClient extends HttpServlet {
         if(url.equals("/equida/ServletClient/consulterProfil"))
         {                   
             
-            String idClient = request.getParameter("idClient");
-            System.out.println("idClient: " + idClient);
+            String idClient = request.getParameter("idCLient");
+            
             Client unClient = ClientDAO.getUnClient(connection, idClient);
             request.setAttribute("pClient", unClient);
             getServletContext().getRequestDispatcher("/vues/client/consulterClient.jsp").forward(request, response);
         }
-    } 
+    }
 
     /**
      * Handles the HTTP <code>POST</code> method.

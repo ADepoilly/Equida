@@ -27,7 +27,6 @@
 - ETQ Employé, je peux consulter les informations des intervenants (acheteurs/vendeurs)
 - ETQ Employé, je peux modifier un intervenant
 - ETQ Employé, je peux supprimer un intervenant
-- ETQ Employé, je peux ajouter un cheval
 - ETQ Employé, je peux avoir toute la liste des chevaux
 
 compte client :
